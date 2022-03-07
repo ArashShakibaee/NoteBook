@@ -76,6 +76,7 @@ class FormTextFields extends StatelessWidget {
   }
   Widget buildDescriptionField(){
     return TextFormField(
+      maxLines: 10,
       validator: (description){
         description == null && description!.isEmpty ? 'Description is required !':null;
       },

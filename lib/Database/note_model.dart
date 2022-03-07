@@ -50,6 +50,7 @@ class Note {
   }
 
   Map<String, Object> toJson() => {
+        NoteFields.id: id!,
         NoteFields.number: number,
         NoteFields.isImportant: isImportant ? 1 : 0,
         NoteFields.title: title,

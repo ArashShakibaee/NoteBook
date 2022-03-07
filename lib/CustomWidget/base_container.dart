@@ -24,10 +24,10 @@ class BaseContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _pickColors[index % _pickColors.length];
     final time = DateFormat.yMMMd().format(note.time);
-    final minHeight = getMinHeight(index);
+   // final minHeight = getMinHeight(index);
     return Container(
       padding: const EdgeInsets.all(8),
-      constraints: BoxConstraints(minHeight: minHeight),
+     // constraints: BoxConstraints(minHeight: minHeight),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(10),

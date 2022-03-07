@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisCount: 4,
         crossAxisSpacing: 12,
         mainAxisSpacing: 16,
-        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+        staggeredTileBuilder: (index) => StaggeredTile.count(2, index.isEven ? 2:4),
         itemBuilder: (context, index) {
           final note = notes[index];
           return GestureDetector(
