@@ -24,32 +24,45 @@ class BaseContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _pickColors[index % _pickColors.length];
     final time = DateFormat.yMMMd().format(note.time);
-
-    return Card(
-      color: color,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              time,
-              style: kTextTimeStyle,
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              note.title,
-              style: kTitleTextStyle,
-            ),
-          ],
-        ),
+    final minHeight = getMinHeight(index);
+    return Container(
+      padding: const EdgeInsets.all(8),
+      constraints: BoxConstraints(minHeight: minHeight),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            time,
+            style: kTextTimeStyle,
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            note.title,
+            style: kTitleTextStyle,
+          ),
+        ],
       ),
     );
+  }
+  double getMinHeight(int index){
+    switch(index % 4){
+      case 0 :
+        return 100;
+      case 1 :
+        return 150;
+      case 2 :
+        return 100;
+      case 3 :
+        return 150;
+      default :
+        return 100;
+    }
   }
 }
