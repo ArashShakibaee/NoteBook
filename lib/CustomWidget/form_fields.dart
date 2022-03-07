@@ -29,24 +29,25 @@ class FormTextFields extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Switch(
                   value: isImportant ?? false, onChanged: onChangedIsImportant),
-              const SizedBox(
-                width: 20,
-              ),
               Slider(
                   value: (number ?? 0).toDouble(),
                   min: 0,
                   max: 5,
                   divisions: 5,
-                  onChanged: (number) => onChangedNumber(number.toInt()))
+                  onChanged: (number) => onChangedNumber(number.toInt())),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text(number.toString(),style: const TextStyle(color: Colors.white70,fontSize: 30),),
+              ),
             ],
           ),
           const SizedBox(height: 10,),
           buildTitleField(),
-          const SizedBox(height: 8,),
+          const SizedBox(height: 4,),
           buildDescriptionField(),
           const SizedBox(height: 20,)
         ],
@@ -56,7 +57,7 @@ class FormTextFields extends StatelessWidget {
   Widget buildTitleField(){
     return TextFormField(
       validator: (title){
-        title != null && title.isEmpty ? 'Title is required !':null;
+        title == null && title!.isEmpty ? 'Title is required !':null;
       },
       initialValue: title,
       maxLines: 1,
@@ -76,7 +77,7 @@ class FormTextFields extends StatelessWidget {
   Widget buildDescriptionField(){
     return TextFormField(
       validator: (description){
-        description != null && description.isEmpty ? 'Description is required !':null;
+        description == null && description!.isEmpty ? 'Description is required !':null;
       },
       initialValue: description,
       style: const TextStyle(

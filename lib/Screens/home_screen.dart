@@ -5,6 +5,7 @@ import 'package:note_book/CustomWidget/base_container.dart';
 import 'package:note_book/Database/note_database.dart';
 import 'package:note_book/Database/note_model.dart';
 import 'package:note_book/Screens/detail_screen.dart';
+import 'package:note_book/Screens/edit_screen.dart';
 import '../constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
-  late List<Note> notes;
+  List<Note> notes = [];
 
   Future refreshNotes() async {
     setState(() {
@@ -76,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               : buildNotes(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
+          await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const EditScreen()));
           refreshNotes();
         },
         backgroundColor: kCustomTeal,
@@ -91,18 +94,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildNotes() {
     return StaggeredGridView.countBuilder(
+        padding: const EdgeInsets.all(8),
         itemCount: notes.length,
         crossAxisCount: 4,
-        crossAxisSpacing: 4,
-        mainAxisSpacing: 8,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 16,
         staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
         itemBuilder: (context, index) {
           final note = notes[index];
           return GestureDetector(
-            onTap: ()async{
-              await Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen(noteId: note.id!,)));
+            onTap: () async {
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailsScreen(
+                            noteId: note.id!,
+                          )));
               refreshNotes();
-              },
+            },
             child: BaseContainer(index: index, note: note),
           );
         });
